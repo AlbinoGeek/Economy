@@ -1,7 +1,4 @@
-﻿// <copyright file="Item.cs" company="Mewzor Holdings Inc.">
-//     Copyright (c) Mewzor Holdings Inc. All rights reserved.
-// </copyright>
-namespace Economy
+﻿namespace Economy
 {
     public enum Item
     {

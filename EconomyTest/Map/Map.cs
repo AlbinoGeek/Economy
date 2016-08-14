@@ -1,8 +1,4 @@
-﻿// <copyright file="Map.cs" company="Mewzor Holdings Inc.">
-//     Copyright (c) Mewzor Holdings Inc. All rights reserved.
-// </copyright>
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 /// <summary>

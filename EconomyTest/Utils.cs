@@ -1,7 +1,4 @@
-﻿// <copyright file="Utils.cs" company="Mewzor Holdings Inc.">
-//     Copyright (c) Mewzor Holdings Inc. All rights reserved.
-// </copyright>
-using Console = Colorful.Console;
+﻿using Console = Colorful.Console;
 
 /// <summary>
 /// 
