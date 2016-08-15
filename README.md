@@ -1,5 +1,7 @@
 # Economy Test
 
+Created during a [livecoding.tv/angryalbino](https://www.livecoding.tv/angryalbino/) Stream.  Watch me work on it every day at 11:00 AM PST.
+
 Basic Economy Simulation with a small Ascii Map to go along with it.
 
 
