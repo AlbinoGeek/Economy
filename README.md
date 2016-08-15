@@ -15,11 +15,13 @@ Latest: v0.1.2-alpha
 
 Console generation and display of a [`Map`](/EconomyTest/Map.cs), and round / turn-based simulation of a [`Market`](/EconomyTest/Economy/Market.cs) full of [`Agent`](/EconomyTest/Economy/Agent.cs)s
 
-![economy simulation](http://i.imgur.com/fcuFZxb.png)
+![economy simulation](http://i.imgur.com/xEd6q9K.png)
 
 Each Turn, `Agent`s must consume some kind of `Food` (`Bread` counts) and some kind of `Water` (`Liquor` counts) to survive.  When only one `Agent` is left surviving, they are marked as the winner.
 
-![economy winner](http://i.imgur.com/Mc0itlm.png)
+Starting with v0.1.2-alpha , `Agent`s will move around the `Map`.
+
+![economy winner](http://i.imgur.com/3TWOVFf.png)
 
 Dead `Agent` are shown as a `-`, where as Alive ones are shown as a `+`.
 
