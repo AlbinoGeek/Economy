@@ -99,6 +99,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -216,15 +224,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EconomyTest"
-        "ProductCode" = "8:{D1ED48EF-18B5-4B59-8EC9-A31F467CA35A}"
-        "PackageCode" = "8:{37085B03-9999-4718-A453-3D7C016996DA}"
+        "ProductCode" = "8:{D506C5CE-8886-44E6-8A39-A3DA1DE29BA7}"
+        "PackageCode" = "8:{9A739063-A327-4B91-A05F-480C2223D81C}"
         "UpgradeCode" = "8:{DE63B043-1E63-4306-BB63-059152666303}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.1.1"
+        "ProductVersion" = "8:0.1.2"
         "Manufacturer" = "8:Mewzor Holdings"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

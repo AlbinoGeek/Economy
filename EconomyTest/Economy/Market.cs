@@ -19,6 +19,8 @@ namespace Economy
         /// </summary>
         public List<Agent> Agents;
 
+        public System.Random Random = new System.Random();
+
         /// <summary>
         /// current number of turns simulated
         /// </summary>
@@ -28,9 +30,10 @@ namespace Economy
         /// register an Agent for inclusion in the simulation
         /// </summary>
         /// <param name="agent">Agent to register</param>
-        public void Register(Agent agent)
+        public void Register(ref Agent agent)
         {
             agent.market = this;
+            agent.Start();
             Agents.Add(agent);
         }
 

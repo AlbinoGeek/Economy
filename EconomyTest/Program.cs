@@ -74,14 +74,14 @@ public class Program
 
             agent.X = r.Next(map.Width - 2) + 1;
             agent.Y = r.Next(map.Height - 2) + 1;
-            map.Register(agent);
+            map.Register(ref agent);
 
             // Everyone gets a basic allowance
             agent.Seed(Item.Currency, r.Next(7) + 3);
             agent.Seed(Item.Bread, r.Next(22) + 3);
             agent.Seed(Item.Water, r.Next(22) + 3);
 
-            market.Register(agent);
+            market.Register(ref agent);
         }
 
         // Give one agent $1000
@@ -113,7 +113,7 @@ public class Program
         Console.Clear();
 
         // Economy main loop
-        int ret = this.MainLoop(market, map);
+        int ret = this.MainLoop(ref market, ref map);
 
         Utils.LogInfo("Economy finished simulating.");
         Console.ReadKey();
@@ -126,7 +126,7 @@ public class Program
     /// <param name="market">economy instance to simulate</param>
     /// <param name="map">map to draw agents on</param>
     /// <returns>0 on success</returns>
-    private int MainLoop(Market market, Map map)
+    private int MainLoop(ref Market market, ref Map map)
     {
         int retCode = 0;
 

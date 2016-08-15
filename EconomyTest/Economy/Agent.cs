@@ -17,6 +17,8 @@ namespace Economy
         /// </summary>
         public bool Alive = true;
 
+        public Point Destination;
+
         /// <summary>
         /// if ! \ref this.Alive then this is how we died
         /// </summary>
@@ -33,7 +35,7 @@ namespace Economy
         /// economy simulation we take part in (our parent)
         /// </summary>
         public Market market = null;
-
+        
         /// <summary>
         /// represents everything the Agent owns
         /// </summary>
@@ -123,7 +125,7 @@ namespace Economy
                 Seed(Item.Currency, value - ItemCount(Item.Currency));
             }
         }
-
+        
         /// <summary>
         /// present an item (miraculous creation)
         /// </summary>
@@ -145,6 +147,16 @@ namespace Economy
         }
 
         /// <summary>
+        /// initialize our status
+        /// </summary>
+        public void Start()
+        {
+            // Have no destination at the start
+            Destination.X = this.X;
+            Destination.Y = this.Y;
+        }
+
+        /// <summary>
         /// called by \ref Market to move us forward a cycle
         /// </summary>
         public void Tick()
@@ -152,6 +164,32 @@ namespace Economy
             Ascii = Alive ? "+" : "-";
             if (Alive)
             {
+                // If we have reached our destination
+                if (Destination.Distance(new Point(this.X, this.Y)) < 1f)
+                {
+                    // Set a new destination
+                    Destination.X = market.Random.Next(parent.Width - 2) + 1;
+                    Destination.Y = market.Random.Next(parent.Height - 2) + 1;
+                }
+
+                // Move towards destination
+                if (Destination.X > this.X)
+                {
+                    this.X += 1;
+                }
+                else if (Destination.Y > this.Y)
+                {
+                    this.Y += 1;
+                }
+                else if (Destination.X < this.X)
+                {
+                    this.X -= 1;
+                }
+                else if (Destination.Y < this.Y)
+                {
+                    this.Y -= 1;
+                }
+
                 // Consume resources
                 Seed(Item.Bread, -1);
                 Seed(Item.Water, -1);

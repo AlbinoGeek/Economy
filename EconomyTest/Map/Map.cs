@@ -96,10 +96,20 @@ public class Map
     /// adds to the list of objects we draw
     /// </summary>
     /// <param name="mapObject">object to add</param>
-    public void Register(MapObject mapObject)
+    public void Register(ref MapObject mapObject)
     {
         mapObject.parent = this;
         MapObjects.Add(mapObject);
+    }
+
+    /// <summary>
+    /// adds an Agent to the list of objects we draw
+    /// </summary>
+    /// <param name="agent">Agent to add</param>
+    public void Register(ref Economy.Agent agent)
+    {
+        agent.parent = this;
+        MapObjects.Add(agent);
     }
 
     /// <summary>
@@ -115,10 +125,10 @@ public class Map
         }
         else if (tile == MapTile.Ground)
         {
-            return "▒";
+            return ".";
         }
 
-        return "░";
+        return " ";
     }
 
     /// <summary>
