@@ -8,16 +8,16 @@ public class Utils
 {
     public static void LogDebug(string message)
     {
-        Console.WriteLine("[DEBUG] " + message, System.Drawing.Color.SteelBlue);
+        Console.WriteLine($"[DEBUG] {message}", System.Drawing.Color.SteelBlue);
     }
 
     public static void LogInfo(string message)
     {
-        Console.WriteLine(" [INFO] " + message, System.Drawing.Color.Wheat);
+        Console.WriteLine($" [INFO] {message}", System.Drawing.Color.Wheat);
     }
 
     public static void LogWarn(string message)
     {
-        Console.WriteLine(" [WARN] " + message, System.Drawing.Color.Yellow);
+        Console.WriteLine($" [WARN] {message}", System.Drawing.Color.Yellow);
     }
 }
