@@ -45,11 +45,11 @@ public class Map
         this.Width = width;
         this.Height = height;
 
-        this.MapObjects = new List<MapObject>();
-        this.map = new MapTile[this.Width][];
-        for (int x = 0; x < this.map.Length; ++x)
+        MapObjects = new List<MapObject>();
+        map = new MapTile[Width][];
+        for (int x = 0; x < map.Length; ++x)
         {
-            this.map[x] = new MapTile[this.Height];
+            map[x] = new MapTile[Height];
         }
     }
     
@@ -65,23 +65,23 @@ public class Map
         }
 
         // Draw the map's tiles
-        for (int x = 0; x < this.map.Length; ++x)
+        for (int x = 0; x < map.Length; ++x)
         {
-            for (int y = 0; y < this.map[x].Length + 0; ++y)
+            for (int y = 0; y < map[x].Length + 0; ++y)
             {
                 Console.SetCursorPosition(x, y + yOffset);
-                Console.Write(this.ToAscii(this.map[x][y]));
+                Console.Write(ToAscii(map[x][y]));
             }
         }
 
         // Draw people on top of the map
-        for (int i = 0; i < this.MapObjects.Count; i++)
+        for (int i = 0; i < MapObjects.Count; i++)
         {
-            Console.SetCursorPosition(this.MapObjects[i].X, this.MapObjects[i].Y + yOffset);
-            Console.Write(this.MapObjects[i].Ascii);
+            Console.SetCursorPosition(MapObjects[i].X, MapObjects[i].Y + yOffset);
+            Console.Write(MapObjects[i].Ascii);
         }
 
-        Console.SetCursorPosition(0, this.Height + yOffset);
+        Console.SetCursorPosition(0, Height + yOffset);
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ public class Map
     /// </summary>
     public void Generate()
     {
-        this.DrawBorder();
+        DrawBorder();
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class Map
     public void Register(MapObject mapObject)
     {
         mapObject.parent = this;
-        this.MapObjects.Add(mapObject);
+        MapObjects.Add(mapObject);
     }
 
     /// <summary>
@@ -127,12 +127,12 @@ public class Map
     private void DrawBorder()
     {
         // Draw horizontal borders
-        this.DrawLine(0, 0, this.Width);
-        this.DrawLine(0, this.Height - 1, this.Width);
+        DrawLine(0, 0, Width);
+        DrawLine(0, Height - 1, Width);
 
         // Draw vertical borders
-        this.DrawLine(0, 0, this.Height, true);
-        this.DrawLine(this.Width - 1, 0, this.Height, true);
+        DrawLine(0, 0, Height, true);
+        DrawLine(Width - 1, 0, Height, true);
     }
 
     // TODO Why do it this way?
@@ -147,7 +147,7 @@ public class Map
     {
         for (int i = x; i < length + x; i++)
         {
-            this.map[i][y] = MapTile.Wall;
+            map[i][y] = MapTile.Wall;
         }
     }
 
@@ -165,7 +165,7 @@ public class Map
     {
         for (int i = y; i < length + y; i++)
         {
-            this.map[x][i] = MapTile.Wall;
+            map[x][i] = MapTile.Wall;
         }
     }
 }

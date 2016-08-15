@@ -47,7 +47,7 @@ namespace Economy
         {
             this.Name = name;
 
-            this.collection = new Dictionary<Item, int>();
+            collection = new Dictionary<Item, int>();
         }
 
         /// <summary>
@@ -83,12 +83,12 @@ namespace Economy
         {
             get
             {
-                return this.ItemCount(Item.Bread);
+                return ItemCount(Item.Bread);
             }
 
             private set
             {
-                this.Seed(Item.Bread, value - this.ItemCount(Item.Bread));
+                Seed(Item.Bread, value - ItemCount(Item.Bread));
             }
         }
 
@@ -99,12 +99,12 @@ namespace Economy
         {
             get
             {
-                return this.ItemCount(Item.Water);
+                return ItemCount(Item.Water);
             }
 
             private set
             {
-                this.Seed(Item.Water, value - this.ItemCount(Item.Water));
+                Seed(Item.Water, value - ItemCount(Item.Water));
             }
         }
 
@@ -115,12 +115,12 @@ namespace Economy
         {
             get
             {
-                return this.ItemCount(Item.Currency);
+                return ItemCount(Item.Currency);
             }
 
             private set
             {
-                this.Seed(Item.Currency, value - this.ItemCount(Item.Currency));
+                Seed(Item.Currency, value - ItemCount(Item.Currency));
             }
         }
 
@@ -132,15 +132,15 @@ namespace Economy
         public void Seed(Item item, int quantity)
         {
             // Check if we have an item already
-            if (this.collection.ContainsKey(item))
+            if (collection.ContainsKey(item))
             {
                 // (does have) Add to quantity
-                this.collection[item] = quantity + this.collection[item];
+                collection[item] = quantity + collection[item];
             }
             else
             {
                 // (doesn't have) Add to collection
-                this.collection.Add(item, quantity);
+                collection.Add(item, quantity);
             }
         }
 
@@ -149,23 +149,23 @@ namespace Economy
         /// </summary>
         public void Tick()
         {
-            this.Ascii = this.Alive ? "+" : "-";
-            if (this.Alive)
+            Ascii = Alive ? "+" : "-";
+            if (Alive)
             {
                 // Consume resources
-                this.Seed(Item.Bread, -1);
-                this.Seed(Item.Water, -1);
+                Seed(Item.Bread, -1);
+                Seed(Item.Water, -1);
             }
 
-            this.Alive = !(this.Food < 0 || this.Water < 0);
-            if (this.Food < 0)
+            Alive = !(Food < 0 || Water < 0);
+            if (Food < 0)
             {
-                this.CauseOfDeath = DeathCause.Starvation;
+                CauseOfDeath = DeathCause.Starvation;
             }
 
-            if (this.Water < 0)
+            if (Water < 0)
             {
-                this.CauseOfDeath = DeathCause.Dehydration;
+                CauseOfDeath = DeathCause.Dehydration;
             }
         }
 
@@ -175,7 +175,7 @@ namespace Economy
         /// <returns>string representation</returns>
         public override string ToString()
         {
-            return $"{this.Name} (Wealth {this.Wealth}) Food: {this.Food} Water: {this.Water}";
+            return $"{Name} (Wealth {Wealth}) Food: {Food} Water: {Water}";
         }
         
         /// <summary>
@@ -185,9 +185,9 @@ namespace Economy
         /// <returns>total count</returns>
         private int ItemCount(Item item)
         {
-            if (this.collection.ContainsKey(item))
+            if (collection.ContainsKey(item))
             {
-                return this.collection[item];
+                return collection[item];
             }
 
             return 0;

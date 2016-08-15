@@ -31,7 +31,7 @@ namespace Economy
         public void Register(Agent agent)
         {
             agent.market = this;
-            this.Agents.Add(agent);
+            Agents.Add(agent);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Economy
         /// <param name="quantity">amount to add</param>
         public void Seed(int agent, Item item, int quantity)
         {
-            this.Agents[agent - 1].Seed(item, quantity);
+            Agents[agent - 1].Seed(item, quantity);
         }
         
         // TODO(Albino) Naming inconsistency: Everything else Tick() s
@@ -53,14 +53,14 @@ namespace Economy
         /// <returns>0 on success</returns>
         public int Step()
         {
-            this.round++;
+            round++;
 
-            Utils.LogInfo("Economy [Turn " + this.round + "]");
+            Utils.LogInfo("Economy [Turn " + round + "]");
             int countAlive = 0;
-            for (int i = 0; i < this.Agents.Count; i++)
+            for (int i = 0; i < Agents.Count; i++)
             {
-                this.Agents[i].Tick();
-                if (this.Agents[i].Alive)
+                Agents[i].Tick();
+                if (Agents[i].Alive)
                 {
                     countAlive++;
                 }
