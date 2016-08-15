@@ -18,6 +18,16 @@ namespace Economy
         Wheat,
         Grain,
         Water,
+
         Liquor,
+        
+        /// <summary>
+        /// completely useless to have
+        /// </summary>
+        Meme,
+        
+        MagicMushroom,
+
+        Crystal,
     }
 }

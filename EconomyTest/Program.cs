@@ -51,7 +51,7 @@ public class Program
         market.Agents = new List<Agent>();
 
         Random r = new Random();
-        Map map = new Map(100, 18);
+        Map map = new Map(100, 16);
         map.Generate();
 
         string[] population =
@@ -62,6 +62,11 @@ public class Program
             "Le Chat",
             "Malscythe",
             "Prxy",
+            "vassvik",
+            "human_supremacist",
+            "SadCloud123",
+            "Sense",
+            "Westermin",
         };
         foreach (string name in population)
         {
@@ -84,12 +89,21 @@ public class Program
 
         // Give one agent 100x Bread
         market.Seed(2, Item.Bread, 100);
-
-        // Give one agent 100x Water
-        market.Seed(3, Item.Water, 100);
         
         // Give Malscythe 10x Liquor
         market.Seed(5, Item.Liquor, 10);
+
+        // Give vassvik control of the world supply of memes
+        market.Seed(7, Item.Meme, 9001);
+
+        // Give SadCloud123 agent 10x Crystals
+        market.Seed(9, Item.Crystal, 10);
+
+        // Give vassvik agent 100x Water
+        market.Seed(10, Item.Water, 100);
+
+        // Give Westermin agent 10x Magic Mushrooms
+        market.Seed(11, Item.MagicMushroom, 10);
 
         map.Display();
 
