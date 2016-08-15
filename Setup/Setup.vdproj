@@ -21,20 +21,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C04DD620C07DC8B54FF6F3A558261C58"
+        "MsmKey" = "8:_D9E089FEA297211399E9A438706EDE1F"
         "OwnerKey" = "8:_0028EB04C900420396C1018385BAFB89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C04DD620C07DC8B54FF6F3A558261C58"
+        "OwnerKey" = "8:_0028EB04C900420396C1018385BAFB89"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0028EB04C900420396C1018385BAFB89"
+        "OwnerKey" = "8:_D9E089FEA297211399E9A438706EDE1F"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -92,6 +92,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -121,14 +129,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C04DD620C07DC8B54FF6F3A558261C58"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D9E089FEA297211399E9A438706EDE1F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Colorful.Console, Version=1.0.5.0, Culture=neutral, PublicKeyToken=cc1f2a0d977b1e28, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C04DD620C07DC8B54FF6F3A558261C58"
+                    "_D9E089FEA297211399E9A438706EDE1F"
                     {
                     "Name" = "8:Colorful.Console.dll"
                     "Attributes" = "3:512"
@@ -208,15 +216,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:EconomyTest"
-        "ProductCode" = "8:{C91DDB1A-81C8-4A80-BCDA-3826C68A61F5}"
-        "PackageCode" = "8:{F4D354CB-B8EC-48A6-B6EB-44B99CCA25C1}"
+        "ProductCode" = "8:{D1ED48EF-18B5-4B59-8EC9-A31F467CA35A}"
+        "PackageCode" = "8:{37085B03-9999-4718-A453-3D7C016996DA}"
         "UpgradeCode" = "8:{DE63B043-1E63-4306-BB63-059152666303}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.1.0"
+        "ProductVersion" = "8:0.1.1"
         "Manufacturer" = "8:Mewzor Holdings"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
