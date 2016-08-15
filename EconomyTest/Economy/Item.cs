@@ -7,6 +7,7 @@
         Flour,
         Wheat,
         Grain,
-        Water
+        Water,
+        Liquor,
     }
 }

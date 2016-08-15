@@ -38,6 +38,7 @@ class Program
             "JohnGeese",
             "StabbyGaming",
             "Le Chat",
+            "Malscythe",
             "Prxy",
         };
         foreach (string name in population)
@@ -65,6 +66,9 @@ class Program
         // Give one agent 100x Water
         market.Seed(3, Item.Water, 100);
         
+        // Give Malscythe 10x Liquor
+        market.Seed(5, Item.Liquor, 10);
+
         map.Display();
 
         Utils.LogInfo("Press any key to simulate...");
