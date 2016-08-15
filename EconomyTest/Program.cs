@@ -1,16 +1,32 @@
-﻿using System;
+﻿// <copyright file="Program.cs" company="Mewzor Holdings Inc.">
+//     Copyright (c) Mewzor Holdings Inc.  No Rights Reserved.
+//     Licensed under the "Do What the Fuck You Want To Public License"
+// </copyright>
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Console = Colorful.Console;
 
 using Economy;
 
-class Program
+using Console = Colorful.Console;
+
+/// <summary>
+/// represents the main entry point when executed
+/// </summary>
+public class Program
 {
+    /// <summary>
+    /// string printed to console to clear a line
+    /// </summary>
     private static string clearLine = "                                                                                                    ";
 
-    static void Main(string[] args)
+    /// <summary>
+    /// represents the main entry point when executed
+    /// \see Program.Run
+    /// </summary>
+    /// <param name="args">ignored launch parameters</param>
+    public static void Main(string[] args)
     {
         Program program = new Program();
 
@@ -21,6 +37,11 @@ class Program
         Console.ReadKey();
     }
 
+    /// <summary>
+    /// actual program code, instanced
+    /// calls \ref this.MainLoop
+    /// </summary>
+    /// <returns>0 on success</returns>
     public int Run()
     {
         // Use refelction to show our version number
@@ -28,12 +49,13 @@ class Program
 
         Market market = new Market();
         market.Agents = new List<Agent>();
-        
+
+        Random r = new Random();
         Map map = new Map(100, 18);
         map.Generate();
 
-        Random r = new Random();
-        string[] population = {
+        string[] population =
+        {
             "AngryAlbino",
             "JohnGeese",
             "StabbyGaming",
@@ -50,9 +72,9 @@ class Program
             map.Register(agent);
 
             // Everyone gets a basic allowance
-            agent.Seed(Item.Currency, r.Next(7)+3);
-            agent.Seed(Item.Bread, r.Next(22)+3);
-            agent.Seed(Item.Water, r.Next(22)+3);
+            agent.Seed(Item.Currency, r.Next(7) + 3);
+            agent.Seed(Item.Bread, r.Next(22) + 3);
+            agent.Seed(Item.Water, r.Next(22) + 3);
 
             market.Register(agent);
         }
@@ -77,14 +99,20 @@ class Program
         Console.Clear();
 
         // Economy main loop
-        int ret = mainLoop(market, map);
+        int ret = this.MainLoop(market, map);
 
         Utils.LogInfo("Economy finished simulating.");
         Console.ReadKey();
         return ret;
     }
 
-    private int mainLoop(Market market, Map map)
+    /// <summary>
+    /// looping portion of program code
+    /// </summary>
+    /// <param name="market">economy instance to simulate</param>
+    /// <param name="map">map to draw agents on</param>
+    /// <returns>0 on success</returns>
+    private int MainLoop(Market market, Map map)
     {
         int retCode = 0;
 
@@ -125,6 +153,7 @@ class Program
             Console.SetCursorPosition(0, map.Height + 2 + i);
             Console.Write(clearLine);
         }
+
         Console.SetCursorPosition(0, map.Height + 3);
 
         var result =

@@ -64,7 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Economy\Agent.cs" />
+    <Compile Include="Economy\Agent.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Economy\Item.cs" />
     <Compile Include="Economy\Market.cs" />
     <Compile Include="Map\Map.cs" />

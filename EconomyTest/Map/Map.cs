@@ -1,34 +1,62 @@
-﻿using System;
+﻿// <copyright file="Map.cs" company="Mewzor Holdings Inc.">
+//     Copyright (c) Mewzor Holdings Inc.  No Rights Reserved.
+//     Licensed under the "Do What the Fuck You Want To Public License"
+// </copyright>
+using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// 
+/// represents a console graphic \see this.Display
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.  We want to have public methods.")]
 public class Map
 {
+    /// <summary>
+    /// console horizontal length of map
+    /// </summary>
     public int Width;
+
+    /// <summary>
+    /// console vertical length of map
+    /// </summary>
     public int Height;
 
     // TODO(Albino) This musn't be public
+
+    /// <summary>
+    /// actual map data
+    /// </summary>
     public MapTile[][] map;
 
     // TODO(Albino) This probably doesn't have to be public
+
+    /// <summary>
+    /// objects we draw on the map \see this.Display
+    /// </summary>
     public List<MapObject> MapObjects;
 
-    public Map(int Width, int Height)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Map" /> class. with dimensions
+    /// </summary>
+    /// <param name="width">horizontal length to create</param>
+    /// <param name="height">vertical length to create</param>
+    public Map(int width, int height)
     {
-        this.Width = Width;
-        this.Height = Height;
+        this.Width = width;
+        this.Height = height;
 
         this.MapObjects = new List<MapObject>();
-        map = new MapTile[Width][];
-        for (int x = 0; x < map.Length; ++x)
+        this.map = new MapTile[this.Width][];
+        for (int x = 0; x < this.map.Length; ++x)
         {
-            map[x] = new MapTile[Height];
+            this.map[x] = new MapTile[this.Height];
         }
     }
     
+    /// <summary>
+    /// draw a representation of \ref this.map on the console
+    /// </summary>
+    /// <param name="yOffset">vertical length to offset drawing by</param>
     public void Display(int yOffset = 0)
     {
         if (yOffset == 0)
@@ -37,28 +65,31 @@ public class Map
         }
 
         // Draw the map's tiles
-        for (int x = 0; x < map.Length; ++x)
+        for (int x = 0; x < this.map.Length; ++x)
         {
-            for (int y = 0; y < map[x].Length + 0; ++y)
+            for (int y = 0; y < this.map[x].Length + 0; ++y)
             {
                 Console.SetCursorPosition(x, y + yOffset);
-                Console.Write(ToAscii(map[x][y]));
+                Console.Write(this.ToAscii(this.map[x][y]));
             }
         }
 
         // Draw people on top of the map
-        for (int i = 0; i < MapObjects.Count; i++)
+        for (int i = 0; i < this.MapObjects.Count; i++)
         {
-            Console.SetCursorPosition(MapObjects[i].X, MapObjects[i].Y + yOffset);
-            Console.Write(MapObjects[i].Ascii);
+            Console.SetCursorPosition(this.MapObjects[i].X, this.MapObjects[i].Y + yOffset);
+            Console.Write(this.MapObjects[i].Ascii);
         }
 
-        Console.SetCursorPosition(0, Height + yOffset);
+        Console.SetCursorPosition(0, this.Height + yOffset);
     }
 
+    /// <summary>
+    /// fills \ref this.map with procedural data
+    /// </summary>
     public void Generate()
     {
-        drawBorder();
+        this.DrawBorder();
     }
 
     /// <summary>
@@ -68,9 +99,14 @@ public class Map
     public void Register(MapObject mapObject)
     {
         mapObject.parent = this;
-        MapObjects.Add(mapObject);
+        this.MapObjects.Add(mapObject);
     }
 
+    /// <summary>
+    /// single character representation of a specific tile
+    /// </summary>
+    /// <param name="tile">tile to represent</param>
+    /// <returns>single character representation</returns>
     public string ToAscii(MapTile tile)
     {
         if (tile == MapTile.Wall)
@@ -81,35 +117,55 @@ public class Map
         {
             return "▒";
         }
+
         return "░";
     }
 
-    private void drawBorder()
+    /// <summary>
+    /// adds a border of walls around \ref this.map
+    /// </summary>
+    private void DrawBorder()
     {
         // Draw horizontal borders
-        drawLine(0, 0, Width-1);
-        drawLine(0, Height-1, Width-1);
-        
+        this.DrawLine(0, 0, this.Width);
+        this.DrawLine(0, this.Height - 1, this.Width);
+
         // Draw vertical borders
-        drawLine(0, 0, Height, true);
-        drawLine(Width-1, 0, Height, true);
+        this.DrawLine(0, 0, this.Height, true);
+        this.DrawLine(this.Width - 1, 0, this.Height, true);
     }
 
     // TODO Why do it this way?
-    private void drawLine(int x, int y, int length)
+
+    /// <summary>
+    /// adds walls in a horizontal line
+    /// </summary>
+    /// <param name="x">starting horizontal position</param>
+    /// <param name="y">starting vertical position</param>
+    /// <param name="length">horizontal length to draw</param>
+    private void DrawLine(int x, int y, int length)
     {
         for (int i = x; i < length + x; i++)
         {
-            map[i][y] = MapTile.Wall;
+            this.map[i][y] = MapTile.Wall;
         }
     }
 
     // TODO Why do it this way?
-    private void drawLine(int x, int y, int length, bool vertical)
+    // HACK: Using extra argument for overloading
+
+    /// <summary>
+    /// adds walls in a vertical line
+    /// </summary>
+    /// <param name="x">starting horizontal position</param>
+    /// <param name="y">starting vertical position</param>
+    /// <param name="length">vertical length to draw</param>
+    /// <param name="vertical">used to create overload</param>
+    private void DrawLine(int x, int y, int length, bool vertical)
     {
         for (int i = y; i < length + y; i++)
         {
-            map[x][i] = MapTile.Wall;
+            this.map[x][i] = MapTile.Wall;
         }
     }
 }
