@@ -13,17 +13,18 @@
 
         public string Name = "";
         
+        // TODO(Albino) This musnt't be a public variable.
         public Market market = null;
         
         public int Food
         {
             private set
             {
-                Seed(Item.Bread, value - CountItem(Item.Bread));
+                Seed(Item.Bread, value - itemCount(Item.Bread));
             }
             get
             {
-                return CountItem(Item.Bread);
+                return itemCount(Item.Bread);
             }
         }
 
@@ -31,11 +32,11 @@
         {
             private set
             {
-                Seed(Item.Water, value - CountItem(Item.Water));
+                Seed(Item.Water, value - itemCount(Item.Water));
             }
             get
             {
-                return CountItem(Item.Water);
+                return itemCount(Item.Water);
             }
         }
 
@@ -43,12 +44,23 @@
         {
             private set
             {
-                Seed(Item.Currency, value - CountItem(Item.Currency));
+                Seed(Item.Currency, value - itemCount(Item.Currency));
             }
             get
             {
-                return CountItem(Item.Currency);
+                return itemCount(Item.Currency);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum DeathCause
+        {
+            None,
+            Starvation,
+            Dehydration,
+            Unknown,
         }
 
         private Dictionary<Item, int> collection;
@@ -58,6 +70,21 @@
             collection = new Dictionary<Item, int>();
 
             this.Name = Name;
+        }
+
+        public void Seed(Item item, int quantity)
+        {
+            // Check if we have an item already
+            if (collection.ContainsKey(item))
+            {
+                // (does have) Add to quantity
+                collection[item] = quantity + collection[item];
+            }
+            else
+            {
+                // (doesn't have) Add to collection
+                collection.Add(item, quantity);
+            }
         }
 
         public void Tick()
@@ -81,30 +108,12 @@
             }
         }
 
-        public void Seed(Item item, int quantity)
-        {
-            // Check if we have an item already
-            if (collection.ContainsKey(item))
-            {
-                // (does have) Add to quantity
-                collection[item] = quantity + collection[item];
-            }
-            else
-            {
-                // (doesn't have) Add to collection
-                collection.Add(item, quantity);
-            }
-        }
-
         public override string ToString()
         {
-            return Name
-                + " (Wealth: " + Wealth + ")"
-                + " Food: " + Food
-                + " Water: " + Water;
+            return $"{Name} (Wealth {Wealth}) Food: {Food} Water: {Water}";
         }
-
-        private int CountItem(Item item)
+        
+        private int itemCount(Item item)
         {
             if (collection.ContainsKey(item))
             {

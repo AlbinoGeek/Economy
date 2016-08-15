@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Economy\Agent.cs" />
-    <Compile Include="Economy\DeathCause.cs" />
     <Compile Include="Economy\Item.cs" />
     <Compile Include="Economy\Market.cs" />
     <Compile Include="Map\Map.cs" />
