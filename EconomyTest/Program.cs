@@ -175,8 +175,17 @@ public class Program
             where a.Alive
             select a;
 
-        Utils.LogWarn("Economy WE HAVE FOUND A WINNER");
-        Utils.LogWarn("Economy Winner: " + result.First().ToString());
+        string winner = "Nobody";
+        try
+        {
+            winner = result.First().ToString();
+            Utils.LogWarn("Economy WE HAVE FOUND A WINNER");
+        }
+        // HACK: Ignore (or really, use) the error where nobody wins.
+        catch (InvalidOperationException ex) { }
+
+        Utils.LogWarn("Economy Winner: " + winner);
+
         return retCode;
-    }
+        }
 }

@@ -8,7 +8,7 @@ Basic Economy Simulation with a small Ascii Map to go along with it.
 ## Download
 
 ### [GitHub Releases](https://github.com/AlbinoGeek/Economy/releases)  
-Latest: v0.1.1-alpha
+Latest: v0.1.2-alpha
 
 
 ## Screenshots
@@ -26,8 +26,6 @@ Dead `Agent` are shown as a `-`, where as Alive ones are shown as a `+`.
 
 ## TODO
 
-- Fix Exception on case: No Winner (last two people die simultaniously)
 - `Map` should generate some items by defualt
-- `Agent`s should move around the `Map`
 - `Agent`s should be able to `Trade` with each-other if near each other
 - `Agent`s should be able to search for items on the `Map`
