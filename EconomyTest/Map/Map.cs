@@ -10,8 +10,10 @@ public class Map
     public int Width;
     public int Height;
 
+    // TODO(Albino) This musn't be public
     public MapTile[][] map;
 
+    // TODO(Albino) This probably doesn't have to be public
     public List<MapObject> MapObjects;
 
     public Map(int Width, int Height)
@@ -26,22 +28,7 @@ public class Map
             map[x] = new MapTile[Height];
         }
     }
-
-    /// <summary>
-    /// adds to the list of objects we draw
-    /// </summary>
-    /// <param name="mapObject">object to add</param>
-    public void Register(MapObject mapObject)
-    {
-        mapObject.parent = this;
-        MapObjects.Add(mapObject);
-    }
-
-    public void Generate()
-    {
-        drawBorder();
-    }
-
+    
     public void Display(int yOffset = 0)
     {
         if (yOffset == 0)
@@ -67,6 +54,21 @@ public class Map
         }
 
         Console.SetCursorPosition(0, Height + yOffset);
+    }
+
+    public void Generate()
+    {
+        drawBorder();
+    }
+
+    /// <summary>
+    /// adds to the list of objects we draw
+    /// </summary>
+    /// <param name="mapObject">object to add</param>
+    public void Register(MapObject mapObject)
+    {
+        mapObject.parent = this;
+        MapObjects.Add(mapObject);
     }
 
     public string ToAscii(MapTile tile)

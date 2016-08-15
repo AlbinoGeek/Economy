@@ -8,6 +8,7 @@
     [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.  We want to have public methods.")]
     public class Market
     {
+        // TODO(Albino) This probably doesn't have to be public.
         public List<Agent> Agents;
 
         /// <summary>
@@ -25,7 +26,8 @@
         {
             Agents[agent-1].Seed(item, quantity);
         }
-
+        
+        // TODO(Albino) Naming inconsistency: Everything else Tick() s
         public int Step()
         {
             round++;
