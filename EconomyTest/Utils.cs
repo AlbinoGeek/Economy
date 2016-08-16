@@ -36,4 +36,24 @@ public class Utils
     {
         Console.WriteLine($" [WARN] {message}", System.Drawing.Color.Yellow);
     }
+
+    /// <summary>
+    /// writes blank spaces to an area, thus clearing existing content
+    /// </summary>
+    /// <param name="x">coordinate from left of screen</param>
+    /// <param name="y">coordinate from top of screen</param>
+    /// <param name="h">horizontal length component</param>
+    /// <param name="w">vertical length component</param>
+    public static void ClearArea(int x, int y, int h, int w)
+    {
+        string space = " ";
+        for (int j = y; j < y + h; j++)
+        {
+            Console.SetCursorPosition(x, j);
+            for (int i = x; i < x + w; i++)
+            {
+                Console.Write(space);
+            }
+        }
+    }
 }

@@ -88,7 +88,7 @@
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\MapObject.cs" />
     <Compile Include="Map\MapTile.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Vector2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />

@@ -29,11 +29,11 @@ public class MapObject
     /// <summary>
     /// represents position on map
     /// </summary>
-    public Point Position
+    public Vector2 Position
     {
         get
         {
-            return new Point(this.X, this.Y);
+            return new Vector2(this.X, this.Y);
         }
     }
 
@@ -46,7 +46,7 @@ public class MapObject
         // Using Linq : Filter MapObject by Distance < 3
         return 
             from mapObject in parent.MapObjects
-            where Point.Distance(mapObject.Position, Position) < distance
+            where Vector2.Distance(mapObject.Position, Position) < distance
             select mapObject;
     }
 

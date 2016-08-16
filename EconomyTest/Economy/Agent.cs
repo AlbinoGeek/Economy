@@ -5,7 +5,10 @@
 namespace Economy
 {
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
+
+    using Console = Colorful.Console;
 
     /// <summary>
     /// represents an entity which takes part in a Market simulation
@@ -18,7 +21,7 @@ namespace Economy
         /// </summary>
         public bool Alive = true;
 
-        public Point Destination;
+        public Vector2 Destination;
 
         /// <summary>
         /// if ! \ref this.Alive then this is how we died
@@ -172,10 +175,10 @@ namespace Economy
             if (Alive)
             {
                 // If we have reached our destination
-                if (Point.Distance(Position, Destination) < 1f)
+                if (Vector2.Distance(Position, Destination) < 1f)
                 {
                     // Set a new destination
-                    Destination = new Point(
+                    Destination = new Vector2(
                         market.Random.Next(parent.Width - 2) + 1,
                         market.Random.Next(parent.Height - 2) + 1
                     );
@@ -248,7 +251,7 @@ namespace Economy
 
             if (newlyDead)
             {
-                Utils.LogWarn($" {Name, -18} has died of " + CauseOfDeath.ToString() );
+                Console.WriteLine($" {Name, -18} has died of " + CauseOfDeath.ToString(), Color.Yellow );
             }
         }
 
@@ -260,7 +263,7 @@ namespace Economy
 
                 if (other.Wealth == 0 && other.Food == 0 && other.Water == 0)
                 {
-                    Utils.LogInfo($" {Name, -18} found the looted body of {other.Name}!");
+                    Console.WriteLine($" {Name, -18} found the looted body of {other.Name}!", Color.Wheat);
                     continue;
                 }
 
@@ -272,7 +275,7 @@ namespace Economy
                 other.Food -= other.Food;
                 other.Water -= other.Water;
 
-                Utils.LogInfo($" {Name, -18} looted everything from {other.Name}!");
+                Console.WriteLine($" {Name,-18} looted everything from {other.Name}!", Color.Wheat);
             }
         }
 
@@ -304,7 +307,7 @@ namespace Economy
                     other.Wealth += 2;
                     Food++;
 
-                    Utils.LogInfo($" {Name, -18} bought Food  from {other.Name}!");
+                    Console.WriteLine($" {Name,-18} bought Food  from {other.Name}!", Color.LawnGreen);
                 }
                 // Buy Water from others if we need it
                 else if (Water < 5 && other.Water > 10)
@@ -316,7 +319,7 @@ namespace Economy
                     other.Wealth += 2;
                     Water++;
 
-                    Utils.LogInfo($" {Name, -18} bought Water from {other.Name}!");
+                    Console.WriteLine($" {Name,-18} bought Water from {other.Name}!", Color.LawnGreen);
                 }
                 else
                 {
@@ -348,7 +351,7 @@ namespace Economy
         /// <returns>string representation</returns>
         public override string ToString()
         {
-            return $"{trades} | {Name, -18} | Wealth: {Wealth, 4}  Food: {Food, 3}  Water: {Water, 3}";
+            return $" {Name, -18}| {Wealth, 3}| {Food, 3}| {Water, 3}";
         }
         
         /// <summary>

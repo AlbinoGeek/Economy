@@ -4,6 +4,7 @@
 // </copyright>
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -17,11 +18,6 @@ using Console = Colorful.Console;
 /// </summary>
 public class Program
 {
-    /// <summary>
-    /// string printed to console to clear a line
-    /// </summary>
-    private static string clearLine = "                                                                                                    ";
-    
     /// <summary>
     /// represents the main entry point when executed
     /// \see Program.Run
@@ -52,7 +48,7 @@ public class Program
         market.Agents = new List<Agent>();
 
         Random r = new Random();
-        Map map = new Map(100, 14);
+        Map map = new Map(100, 20);
         map.Generate();
 
         string[] population =
@@ -60,12 +56,15 @@ public class Program
             "AngryAlbino",
             "JohnGeese",
             "StabbyGaming",
+            "deccer",
             "E.B.",
             "human_supremacist",
             "Le Chat",
             "Malscythe",
             "Prxy",
+            "RobbieW",
             "SadCloud123",
+            "sean",
             "Sense",
             "Westermin",
             "wubbalubbadubdub",
@@ -80,15 +79,15 @@ public class Program
             map.Register(ref agent);
 
             // Everyone gets a basic allowance
-            agent.Seed("Money", r.Next(7) + 3);
-            agent.Seed("Bread", r.Next(22) + 3);
-            agent.Seed("Water", r.Next(22) + 3);
+            agent.Seed("Money", r.Next(9) + 6);
+            agent.Seed("Bread", r.Next(24) + 6);
+            agent.Seed("Water", r.Next(24) + 6);
 
             market.Register(ref agent);
         }
 
-        // Give one agent $1000
-        market.Seed(1, "Money", 1000);
+        // Give one agent $800
+        market.Seed(1, "Money", 800);
 
         // Give one agent 100x Bread
         market.Seed(2, "Bread", 100);
@@ -103,7 +102,7 @@ public class Program
         //market.Seed(9, Item.Crystal, 10);
 
         // Give vassvik agent 100x Water
-        market.Seed(13, "Water", 100);
+        market.Seed(16, "Water", 100);
 
         // Give Westermin agent 10x Magic Mushrooms
         //market.Seed(11, Item.MagicMushroom, 10);
@@ -140,27 +139,28 @@ public class Program
         while (countAlive > 1)
         {
             // Clear old Logs
-            for (int i = 0; i < 8; i++)
-            {
-                Console.SetCursorPosition(0, map.Height +market.Agents.Count + i);
-                Console.Write(clearLine);
-            }
+            Utils.ClearArea(0, map.Height + 2, 10, 63);
 
+            // Displya the map at 0,0
             Console.SetCursorPosition(0, 0);
             map.Display();
 
-            Console.SetCursorPosition(0, 1 + map.Height + market.Agents.Count);
+            // Show events that happened during the Turn
+            Console.SetCursorPosition(0, map.Height + 1);
             countAlive = market.Step();
-            
+
+            // Show table header
+            Console.SetCursorPosition(55, map.Height + 1);
+            Console.Write("         Player            |   $|Food|Water", Color.SteelBlue);
+
+            // Show player status per alive Agent
+            Utils.ClearArea(63, map.Height + 2, market.Agents.Count, 50);
             for (int i = 0; i < market.Agents.Count; i++)
             {
-                Console.SetCursorPosition(0, map.Height + i);
-                Console.Write(clearLine);
-
                 if (market.Agents[i].Alive)
                 {
-                    Console.SetCursorPosition(0, map.Height + i);
-                    Utils.LogDebug(market.Agents[i].ToString());
+                    Console.SetCursorPosition(63, map.Height + 2 + i);
+                    Console.Write(market.Agents[i].ToString(), Color.LightSteelBlue);
                 }
             }
             
@@ -170,20 +170,11 @@ public class Program
 
         // Everyone is dead, show the final map status
         map.Display();
-
-        for (int i = 0; i < market.Agents.Count; i++)
-        {
-            Console.SetCursorPosition(0, map.Height + 2 + i);
-            Console.Write(clearLine);
-        }
         
-        // Clear old Logs
-        for (int i = 0; i < 8; i++)
-        {
-            Console.SetCursorPosition(0, map.Height +market.Agents.Count + i);
-            Console.Write(clearLine);
-        }
+        // Clear everything but the map
+        Utils.ClearArea(0, map.Height, market.Agents.Count + 10, 100);
 
+        // Show the result screen
         Console.SetCursorPosition(0, map.Height + 3);
 
         var result =
