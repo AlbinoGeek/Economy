@@ -12,21 +12,15 @@ using Dapper;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.  We want to have public methods.")]
 public class Item : ItemTemplate
 {
-    public static string FilePath
-    {
-        get
-        {
-            return Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Items.db");
-        }
-    }
-
-    public static SQLiteConnection Connection()
-    {
-        return new SQLiteConnection("Data Source=" + FilePath);
-    }
-
+    /// <summary>
+    /// number of items represented
+    /// </summary>
     public int Quantity;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Item" /> class from a database template
+    /// </summary>
+    /// <param name="itemName">name of ItemTemplate in database</param>
     public Item(string itemName)
     {
         using (SQLiteConnection conn = Connection())
@@ -44,17 +38,24 @@ public class Item : ItemTemplate
             Weight = result.Weight;
         }
     }
-}
 
-/*
-Currency,
-Bread,
-Flour,
-Wheat,
-Grain,
-Water,
-Liquor,
-Meme,
-MagicMushroom,
-Crystal,
-*/
+    /// <summary>
+    /// Gets the path to our SQLite database
+    /// </summary>
+    public static string FilePath
+    {
+        get
+        {
+            return Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Items.db");
+        }
+    }
+
+    /// <summary>
+    /// Gets a connection to the SQLite database
+    /// </summary>
+    /// <returns>unopened connection to database</returns>
+    public static SQLiteConnection Connection()
+    {
+        return new SQLiteConnection("Data Source=" + FilePath);
+    }
+}

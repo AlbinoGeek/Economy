@@ -19,6 +19,9 @@ namespace Economy
         /// </summary>
         public List<Agent> Agents;
 
+        /// <summary>
+        /// reference to our random library, constant to keep seed
+        /// </summary>
         public System.Random Random = new System.Random();
 
         /// <summary>
@@ -30,6 +33,7 @@ namespace Economy
             {
                 return _round;
             }
+
             private set
             {
                 _round = value;
@@ -47,7 +51,7 @@ namespace Economy
         /// <param name="agent">Agent to register</param>
         public void Register(ref Agent agent)
         {
-            agent.market = this;
+            agent.Market = this;
             agent.Start();
             Agents.Add(agent);
         }
@@ -56,7 +60,7 @@ namespace Economy
         /// \see Agent.Seed
         /// </summary>
         /// <param name="agent">agent to gift</param>
-        /// <param name="item">item to create</param>
+        /// <param name="itemName">name of item to create</param>
         /// <param name="quantity">amount to add</param>
         public void Seed(int agent, string itemName, int quantity)
         {

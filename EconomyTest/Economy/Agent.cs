@@ -21,6 +21,9 @@ namespace Economy
         /// </summary>
         public bool Alive = true;
 
+        /// <summary>
+        /// represents our current target coordinate
+        /// </summary>
         public Vector2 Destination;
 
         /// <summary>
@@ -33,13 +36,6 @@ namespace Economy
         /// </summary>
         public string Name = string.Empty;
         
-        // TODO(Albino) This musnt't be a public variable.
-
-        /// <summary>
-        /// economy simulation we take part in (our parent)
-        /// </summary>
-        public Market market = null;
-        
         /// <summary>
         /// represents everything the Agent owns
         /// </summary>
@@ -49,7 +45,7 @@ namespace Economy
         /// number of trades this turn
         /// </summary>
         private int trades = 0;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Agent" /> class. with a name and no items
         /// </summary>
@@ -134,11 +130,16 @@ namespace Economy
                 Seed("Money", value - ItemCount("Money"));
             }
         }
-        
+
+        /// <summary>
+        /// Gets or sets economy simulation we take part in (our parent)
+        /// </summary>
+        internal Market Market { get; set; }
+
         /// <summary>
         /// present an item (miraculous creation)
         /// </summary>
-        /// <param name="item">item to create</param>
+        /// <param name="itemName">name of item to create</param>
         /// <param name="quantity">amount to add</param>
         public void Seed(string itemName, int quantity)
         {
@@ -179,9 +180,8 @@ namespace Economy
                 {
                     // Set a new destination
                     Destination = new Vector2(
-                        market.Random.Next(parent.Width - 2) + 1,
-                        market.Random.Next(parent.Height - 2) + 1
-                    );
+                        Market.Random.Next(parent.Width - 2) + 1,
+                        Market.Random.Next(parent.Height - 2) + 1);
                 }
 
                 var nearby = GetNeighbors(5);
@@ -251,10 +251,32 @@ namespace Economy
 
             if (newlyDead)
             {
-                Console.WriteLine($" {Name, -18} has died of " + CauseOfDeath.ToString(), Color.Yellow );
+                Console.WriteLine($" {Name, -18} has died of " + CauseOfDeath.ToString(), Color.Yellow);
             }
         }
+        
+        /// <summary>
+        /// based on \ref Alive status
+        /// </summary>
+        /// <returns>single character string representation</returns>
+        public override string ToAscii()
+        {
+            return Alive ? "+" : "-";
+        }
 
+        /// <summary>
+        /// basic status information that represents the Agent
+        /// </summary>
+        /// <returns>string representation</returns>
+        public override string ToString()
+        {
+            return $" {Name,-18}| {Wealth,3}| {Food,3}| {Water,3}";
+        }
+        
+        /// <summary>
+        /// action: searches the bodies of passed \ref nearby and takes their \ref collection
+        /// </summary>
+        /// <param name="nearby">dead agents</param>
         private void Loot(List<Agent> nearby)
         {
             for (int i = 0; i < nearby.Count(); i++)
@@ -279,11 +301,13 @@ namespace Economy
             }
         }
 
-        private void Search(List<MapObject> nearby)
-        {
+        // TODO: WHY IS SEARCH NOT A THING?
+        private void Search(List<MapObject> nearby) {}
 
-        }
-
+        /// <summary>
+        /// action: given certain trade rules, attempt to take items for money
+        /// </summary>
+        /// <param name="nearby">alive agents</param>
         private void Trade(List<Agent> nearby)
         {
             trades = 0;
@@ -297,9 +321,8 @@ namespace Economy
 
                 Agent other = nearby.ElementAt(i) as Agent;
                 
-                // Buy Food from others if we need it
                 if (Food < 5 && other.Food > 10)
-                {
+                { // Buy Food from others if we need it
                     // Buy 1 food for 2 Money
                     other.Food--;
                     Wealth -= 2;
@@ -309,9 +332,8 @@ namespace Economy
 
                     Console.WriteLine($" {Name,-18} bought Food  from {other.Name}!", Color.LawnGreen);
                 }
-                // Buy Water from others if we need it
                 else if (Water < 5 && other.Water > 10)
-                {
+                { // Buy Water from others if we need it
                     // Buy 1 Water for 2 Money
                     other.Water--;
                     Wealth -= 2;
@@ -335,29 +357,11 @@ namespace Economy
                 }
             }
         }
-        
-        /// <summary>
-        /// based on \ref Alive status
-        /// </summary>
-        /// <returns>single character string representation</returns>
-        public override string ToAscii()
-        {
-            return Alive ? "+" : "-";
-        }
-        
-        /// <summary>
-        /// basic status information that represents the Agent
-        /// </summary>
-        /// <returns>string representation</returns>
-        public override string ToString()
-        {
-            return $" {Name, -18}| {Wealth, 3}| {Food, 3}| {Water, 3}";
-        }
-        
+
         /// <summary>
         /// counts the number of item in \ref this.collection
         /// </summary>
-        /// <param name="item">item to search for</param>
+        /// <param name="itemName">name of item to search for</param>
         /// <returns>total count</returns>
         private int ItemCount(string itemName)
         {

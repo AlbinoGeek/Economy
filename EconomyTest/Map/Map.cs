@@ -21,20 +21,6 @@ public class Map
     /// </summary>
     public int Height;
 
-    // TODO(Albino) This musn't be public
-
-    /// <summary>
-    /// actual map data
-    /// </summary>
-    public MapTile[][] map;
-
-    // TODO(Albino) This probably doesn't have to be public
-
-    /// <summary>
-    /// objects we draw on the map \see this.Display
-    /// </summary>
-    public List<MapObject> MapObjects;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Map" /> class. with dimensions
     /// </summary>
@@ -52,7 +38,17 @@ public class Map
             map[x] = new MapTile[Height];
         }
     }
-    
+
+    /// <summary>
+    /// Gets list of objects we draw on the map \see this.Display
+    /// </summary>
+    public List<MapObject> MapObjects { get; private set; }
+
+    /// <summary>
+    /// Gets actual map data
+    /// </summary>
+    internal MapTile[][] map { get; private set; }
+
     /// <summary>
     /// draw a representation of \ref this.map on the console
     /// </summary>
@@ -73,7 +69,6 @@ public class Map
         for (int i = 0; i < MapObjects.Count; i++)
         {
             Console.SetCursorPosition(MapObjects[i].X, MapObjects[i].Y + yOffset);
-            //Console.Write(MapObjects[i].ToAscii());
             MapObjects[i].PrintColoured();
         }
 

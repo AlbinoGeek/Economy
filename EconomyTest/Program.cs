@@ -77,8 +77,8 @@ public class Program
         {
             ourColors[i] = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
         }
-        int j = 0;
 
+        int j = 0;
         foreach (string name in population)
         {
             Agent agent = new Agent(name);
@@ -200,15 +200,15 @@ public class Program
             where a.Alive
             select a;
 
+        // HACK: Ignore (or really, use) the error where nobody wins.
         string winner = "Nobody";
         try
         {
             winner = result.First().ToString();
             Utils.LogWarn("Economy WE HAVE FOUND A WINNER");
         }
-        // HACK: Ignore (or really, use) the error where nobody wins.
         catch { }
-        
+
         Utils.LogWarn("Economy Winner: " + winner);
         Utils.LogWarn($"Economy Lasted {market.Round} rounds.");
 

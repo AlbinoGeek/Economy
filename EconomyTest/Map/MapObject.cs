@@ -15,11 +15,6 @@ using Console = Colorful.Console;
 public class MapObject
 {
     /// <summary>
-    /// must be set by the creator before simulating
-    /// </summary>
-    public Map parent = null;
-    
-    /// <summary>
     /// represents left position on map
     /// </summary>
     public int X;
@@ -29,10 +24,8 @@ public class MapObject
     /// </summary>
     public int Y;
 
-    public Color Colour = Color.Wheat;
-
     /// <summary>
-    /// represents position on map
+    /// Gets coordinate on map
     /// </summary>
     public Vector2 Position
     {
@@ -43,8 +36,14 @@ public class MapObject
     }
 
     /// <summary>
+    /// Gets or sets the world we are on
+    /// </summary>
+    internal Map parent { get; set; }
+
+    /// <summary>
     /// gets a list of all MapObjects near us
     /// </summary>
+    /// <param name="distance">maximum radius to search</param>
     /// <returns>list of nearby objects</returns>
     public IEnumerable<MapObject> GetNeighbors(float distance)
     {
@@ -54,7 +53,15 @@ public class MapObject
             where Vector2.Distance(mapObject.Position, Position) < distance
             select mapObject;
     }
-    
+
+    /// <summary>
+    /// color used by \ref PrintColoured
+    /// </summary>
+    public Color Colour = Color.Wheat;
+
+    /// <summary>
+    /// prints a colored representation based on \ref ToAscii
+    /// </summary>
     public void PrintColoured()
     {
         Console.Write(ToAscii(), Colour);
