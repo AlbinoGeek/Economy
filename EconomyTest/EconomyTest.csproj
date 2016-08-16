@@ -97,9 +97,6 @@
     <Compile Include="Economy\Market.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemTemplate.cs" />
-    <Compile Include="ItemTemplates\Currency.cs" />
-    <Compile Include="ItemTemplates\FoodSolid.cs" />
-    <Compile Include="ItemTemplates\FoodLiquid.cs" />
     <Compile Include="Map\Map.cs" />
     <Compile Include="Map\MapObject.cs" />
     <Compile Include="Map\MapTile.cs" />

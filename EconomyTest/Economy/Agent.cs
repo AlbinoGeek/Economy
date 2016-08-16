@@ -6,8 +6,6 @@ namespace Economy
 {
     using System.Collections.Generic;
 
-    using ItemTemplates;
-
     /// <summary>
     /// represents an entity which takes part in a Market simulation
     /// </summary>
