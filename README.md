@@ -12,26 +12,13 @@ Watch me work on it every day at 11:00 AM PST.
 Latest: v0.1.3-alpha
 
 
-## Special `Agent`s
-    
-    E.B. | The Middle-Man
-    - Allows two Agent to trade, at edge of radius
-      - Gains +1 Money from Trades these trades```
-    
-    Malscythe | Item: Liquor
-    - ?
-    
-    SadCloud123 | Item: Crystals
-    - ?
-    
-    vassvik | Item: Meme
-    - Owner of the world's supply of memes
-    
-    Westermin | Item: Magic Mushroom
-    - ?
-    
-    wubbalubbadubdub | ?
-    - 
+## Contributing
+
+I would love to have other people providing both input and code.  You can either:
+
+- Create Tickets on the "Issues" Tracker
+- Open a Pull Request and I will merge it
+- Ask to be a Contributor and I'll add you
 
 
 ## Screenshots
@@ -53,6 +40,28 @@ When only one `Agent` is left surviving, they are marked as the winner.
 ![economy winner](http://i.imgur.com/f3dQT94.png)
 
 Dead `Agent` are shown as a `-`, where as Alive ones are shown as a `+`.
+
+
+## Special `Agent`s
+    
+    E.B. | The Middle-Man
+    - Allows two Agent to trade, at edge of radius
+      - Gains +1 Money from Trades these trades```
+    
+    Malscythe | Item: Liquor
+    - ?
+    
+    SadCloud123 | Item: Crystals
+    - ?
+    
+    vassvik | Item: Meme
+    - Owner of the world's supply of memes
+    
+    Westermin | Item: Magic Mushroom
+    - ?
+    
+    wubbalubbadubdub | ?
+    - 
 
 
 ## TODO
