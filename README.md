@@ -11,6 +11,27 @@ Basic Economy Simulation with a small Ascii Map to go along with it.
 Latest: v0.1.3-alpha
 
 
+## Special `Agent`s
+    
+    E.B. | The Middle-Man
+    - Allows two Agent to trade, at edge of radius
+      - Gains +1 Money from Trades these trades```
+    
+    Malscythe | Item: Liquor
+    - ?
+    
+    SadCloud123 | Item: Crystals
+    - ?
+    
+    vassvik | Item: Meme
+    - Owner of the world's supply of memes
+    
+    Westermin | Item: Magic Mushroom
+    - ?
+    
+    wubbalubbadubdub | ?
+    - 
+
 ## Screenshots
 
 Console generation and display of a [`Map`](/EconomyTest/Map.cs), and round / turn-based simulation of a [`Market`](/EconomyTest/Economy/Market.cs) full of [`Agent`](/EconomyTest/Economy/Agent.cs)s
