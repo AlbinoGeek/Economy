@@ -3,7 +3,10 @@
 //     Licensed under the "Do What the Fuck You Want To Public License"
 // </copyright>
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+
+using Console = Colorful.Console;
 
 /// <summary>
 /// represents an object that can be drawn by \ref Map
@@ -25,6 +28,8 @@ public class MapObject
     /// represents top position on map
     /// </summary>
     public int Y;
+
+    public Color Colour = Color.White;
 
     /// <summary>
     /// represents position on map
@@ -48,6 +53,11 @@ public class MapObject
             from mapObject in parent.MapObjects
             where Vector2.Distance(mapObject.Position, Position) < distance
             select mapObject;
+    }
+    
+    public void PrintColoured()
+    {
+        Console.Write(ToAscii(), Colour);
     }
 
     /// <summary>

@@ -335,7 +335,7 @@ namespace Economy
                 }
             }
         }
-
+        
         /// <summary>
         /// based on \ref Alive status
         /// </summary>

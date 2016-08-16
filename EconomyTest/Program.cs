@@ -18,6 +18,25 @@ using Console = Colorful.Console;
 /// </summary>
 public class Program
 {
+    private static string[] population = {
+        "AngryAlbino",
+        "JohnGeese",
+        "StabbyGaming",
+        "deccer",
+        "E.B.",
+        "human_supremacist",
+        "Le Chat",
+        "Malscythe",
+        "Prxy",
+        "RobbieW",
+        "SadCloud123",
+        "sean",
+        "Sense",
+        "Westermin",
+        "wubbalubbadubdub",
+        "vassvik",
+    };
+
     /// <summary>
     /// represents the main entry point when executed
     /// \see Program.Run
@@ -48,34 +67,32 @@ public class Program
         market.Agents = new List<Agent>();
 
         Random r = new Random();
-        Map map = new Map(100, 20);
+        Map map = new Map(100, 22);
         map.Generate();
-
-        string[] population =
+        
+        // Because Windows CMD is limited to 16 colors, we only use 8 for players.
+        Color[] ourColors = new Color[8];
+        for (int i = 0; i < ourColors.Length; i++)
         {
-            "AngryAlbino",
-            "JohnGeese",
-            "StabbyGaming",
-            "deccer",
-            "E.B.",
-            "human_supremacist",
-            "Le Chat",
-            "Malscythe",
-            "Prxy",
-            "RobbieW",
-            "SadCloud123",
-            "sean",
-            "Sense",
-            "Westermin",
-            "wubbalubbadubdub",
-            "vassvik",
-        };
+            ourColors[i] = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
+        }
+        int j = 0;
+
         foreach (string name in population)
         {
             Agent agent = new Agent(name);
-
+            
             agent.X = r.Next(map.Width - 2) + 1;
             agent.Y = r.Next(map.Height - 2) + 1;
+
+            // Because Windows CMD is limited to 16 colors, we only use 8 for players.
+            agent.Colour = ourColors[j];
+            j++;
+            if (j > 7)
+            {
+                j = 0;
+            }
+
             map.Register(ref agent);
 
             // Everyone gets a basic allowance
