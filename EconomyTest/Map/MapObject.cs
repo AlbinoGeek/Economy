@@ -29,7 +29,7 @@ public class MapObject
     /// </summary>
     public int Y;
 
-    public Color Colour = Color.White;
+    public Color Colour = Color.Wheat;
 
     /// <summary>
     /// represents position on map

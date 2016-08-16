@@ -22,6 +22,7 @@ public class Program
         "AngryAlbino",
         "JohnGeese",
         "StabbyGaming",
+        "Big Hoss",
         "deccer",
         "E.B.",
         "human_supremacist",
@@ -67,11 +68,11 @@ public class Program
         market.Agents = new List<Agent>();
 
         Random r = new Random();
-        Map map = new Map(100, 22);
+        Map map = new Map(100, 25);
         map.Generate();
         
         // Because Windows CMD is limited to 16 colors, we only use 8 for players.
-        Color[] ourColors = new Color[8];
+        Color[] ourColors = new Color[11]; // Also : Wheat , LawnGreen , Yellow , White , Black
         for (int i = 0; i < ourColors.Length; i++)
         {
             ourColors[i] = Color.FromArgb(r.Next(255), r.Next(255), r.Next(255));
@@ -88,7 +89,7 @@ public class Program
             // Because Windows CMD is limited to 16 colors, we only use 8 for players.
             agent.Colour = ourColors[j];
             j++;
-            if (j > 7)
+            if (j >= ourColors.Length)
             {
                 j = 0;
             }
@@ -168,16 +169,16 @@ public class Program
 
             // Show table header
             Console.SetCursorPosition(55, map.Height + 1);
-            Console.Write("         Player            |   $|Food|Water", Color.SteelBlue);
+            Console.Write("         Player            |   $|Food|Water", Color.Wheat);
 
             // Show player status per alive Agent
-            Utils.ClearArea(63, map.Height + 2, market.Agents.Count, 50);
+            Utils.ClearArea(63, map.Height + 2, market.Agents.Count, 37);
             for (int i = 0; i < market.Agents.Count; i++)
             {
                 if (market.Agents[i].Alive)
                 {
                     Console.SetCursorPosition(63, map.Height + 2 + i);
-                    Console.Write(market.Agents[i].ToString(), Color.LightSteelBlue);
+                    Console.Write(market.Agents[i].ToString(), market.Agents[i].Colour);
                 }
             }
             
@@ -189,7 +190,7 @@ public class Program
         map.Display();
         
         // Clear everything but the map
-        Utils.ClearArea(0, map.Height, market.Agents.Count + 10, 100);
+        Utils.ClearArea(0, map.Height, market.Agents.Count + 2, 100);
 
         // Show the result screen
         Console.SetCursorPosition(0, map.Height + 3);

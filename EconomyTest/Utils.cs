@@ -49,6 +49,12 @@ public class Utils
         string space = " ";
         for (int j = y; j < y + h; j++)
         {
+            // Attempting to clear something below the screen
+            if (j >= Console.BufferHeight)
+            {
+                return;
+            }
+
             Console.SetCursorPosition(x, j);
             for (int i = x; i < x + w; i++)
             {
