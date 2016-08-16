@@ -22,10 +22,25 @@ namespace Economy
         public System.Random Random = new System.Random();
 
         /// <summary>
-        /// current number of turns simulated
+        /// Gets the current round
         /// </summary>
-        private int round = 0;
+        public int Round
+        {
+            get
+            {
+                return _round;
+            }
+            private set
+            {
+                _round = value;
+            }
+        }
 
+        /// <summary>
+        /// \see Round
+        /// </summary>
+        private int _round = 0;
+        
         /// <summary>
         /// register an Agent for inclusion in the simulation
         /// </summary>
@@ -56,9 +71,9 @@ namespace Economy
         /// <returns>0 on success</returns>
         public int Step()
         {
-            round++;
+            Round++;
 
-            Utils.LogInfo("Economy [Turn " + round + "]");
+            Utils.LogInfo("Economy [Turn " + Round + "]");
             int countAlive = 0;
             for (int i = 0; i < Agents.Count; i++)
             {

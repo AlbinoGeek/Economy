@@ -197,8 +197,9 @@ public class Program
         }
         // HACK: Ignore (or really, use) the error where nobody wins.
         catch { }
-
+        
         Utils.LogWarn("Economy Winner: " + winner);
+        Utils.LogWarn($"Economy Lasted {market.Round} rounds.");
 
         return retCode;
     }
