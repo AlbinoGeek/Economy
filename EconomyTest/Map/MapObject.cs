@@ -38,7 +38,7 @@ public class MapObject
     /// <summary>
     /// Gets or sets the world we are on
     /// </summary>
-    internal Map parent { get; set; }
+    internal Map Parent { get; set; }
 
     /// <summary>
     /// gets a list of all MapObjects near us
@@ -49,7 +49,7 @@ public class MapObject
     {
         // Using Linq : Filter MapObject by Distance < 3
         return 
-            from mapObject in parent.MapObjects
+            from mapObject in Parent.MapObjects
             where Vector2.Distance(mapObject.Position, Position) < distance
             select mapObject;
     }

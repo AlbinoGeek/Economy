@@ -12,17 +12,16 @@ namespace Economy
     [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.  We want to have public methods.")]
     public class Market
     {
-        // TODO(Albino) This probably doesn't have to be public.
+        public Market()
+        {
+            Random = new System.Random();
+            Agents = new List<Agent>();
+        }
 
         /// <summary>
-        /// registered list we call each \ref Agent.Tick on every \ref this.Tick
+        /// Gets reference to our random library, constant to keep seed
         /// </summary>
-        public List<Agent> Agents;
-
-        /// <summary>
-        /// reference to our random library, constant to keep seed
-        /// </summary>
-        public System.Random Random = new System.Random();
+        public System.Random Random { get; private set; }
 
         /// <summary>
         /// Gets the current round
@@ -39,6 +38,11 @@ namespace Economy
                 _round = value;
             }
         }
+
+        /// <summary>
+        /// Gets list we call \ref Agent.Tick on each, every \ref this.Tick
+        /// </summary>
+        internal List<Agent> Agents { get; private set; }
 
         /// <summary>
         /// \see Round

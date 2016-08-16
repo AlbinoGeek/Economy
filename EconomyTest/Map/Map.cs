@@ -89,7 +89,7 @@ public class Map
     /// <param name="mapObject">object to add</param>
     public void Register(ref MapObject mapObject)
     {
-        mapObject.parent = this;
+        mapObject.Parent = this;
         MapObjects.Add(mapObject);
     }
 
@@ -99,7 +99,7 @@ public class Map
     /// <param name="agent">Agent to add</param>
     public void Register(ref Economy.Agent agent)
     {
-        agent.parent = this;
+        agent.Parent = this;
         MapObjects.Add(agent);
     }
 

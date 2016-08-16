@@ -45,7 +45,12 @@ namespace Economy
         /// number of trades this turn
         /// </summary>
         private int trades = 0;
-        
+
+        /// <summary>
+        /// amount of food energy we have
+        /// </summary>
+        private float calories = 100;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Agent" /> class. with a name and no items
         /// </summary>
@@ -175,13 +180,15 @@ namespace Economy
         {
             if (Alive)
             {
+                calories -= 33;
+
                 // If we have reached our destination
-                if (Vector2.Distance(Position, Destination) < 1f)
+                if (Vector2.Distance(Position, Destination) < 2f)
                 {
                     // Set a new destination
                     Destination = new Vector2(
-                        Market.Random.Next(parent.Width - 2) + 1,
-                        Market.Random.Next(parent.Height - 2) + 1);
+                        Market.Random.Next(Parent.Width - 2) + 1,
+                        Market.Random.Next(Parent.Height - 2) + 1);
                 }
 
                 var nearby = GetNeighbors(5);
@@ -228,7 +235,12 @@ namespace Economy
                 }
 
                 // Consume resources
-                Seed("Bread", -1);
+                if (calories < 10 && Food > 0)
+                {
+                    Seed("Bread", -1);
+                    calories += 50;
+                }
+                
                 Seed("Water", -1);
             }
 

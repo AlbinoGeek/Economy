@@ -65,7 +65,6 @@ public class Program
         Console.WriteLine("EconomyTest v" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
         
         Market market = new Market();
-        market.Agents = new List<Agent>();
 
         Random r = new Random();
         Map map = new Map(100, 25);
