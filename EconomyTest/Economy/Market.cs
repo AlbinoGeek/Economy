@@ -43,9 +43,9 @@ namespace Economy
         /// <param name="agent">agent to gift</param>
         /// <param name="item">item to create</param>
         /// <param name="quantity">amount to add</param>
-        public void Seed(int agent, Item item, int quantity)
+        public void Seed(int agent, string itemName, int quantity)
         {
-            Agents[agent - 1].Seed(item, quantity);
+            Agents[agent - 1].Seed(itemName, quantity);
         }
         
         // TODO(Albino) Naming inconsistency: Everything else Tick() s

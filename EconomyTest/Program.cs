@@ -20,7 +20,7 @@ public class Program
     /// string printed to console to clear a line
     /// </summary>
     private static string clearLine = "                                                                                                    ";
-
+    
     /// <summary>
     /// represents the main entry point when executed
     /// \see Program.Run
@@ -46,7 +46,7 @@ public class Program
     {
         // Use refelction to show our version number
         Console.WriteLine("EconomyTest v" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
-
+        
         Market market = new Market();
         market.Agents = new List<Agent>();
 
@@ -77,33 +77,33 @@ public class Program
             map.Register(ref agent);
 
             // Everyone gets a basic allowance
-            agent.Seed(Item.Currency, r.Next(7) + 3);
-            agent.Seed(Item.Bread, r.Next(22) + 3);
-            agent.Seed(Item.Water, r.Next(22) + 3);
+            agent.Seed("Money", r.Next(7) + 3);
+            agent.Seed("Bread", r.Next(22) + 3);
+            agent.Seed("Water", r.Next(22) + 3);
 
             market.Register(ref agent);
         }
 
         // Give one agent $1000
-        market.Seed(1, Item.Currency, 1000);
+        market.Seed(1, "Money", 1000);
 
         // Give one agent 100x Bread
-        market.Seed(2, Item.Bread, 100);
+        market.Seed(2, "Bread", 100);
         
         // Give Malscythe 10x Liquor
-        market.Seed(5, Item.Liquor, 10);
+        //market.Seed(5, Item.Liquor, 10);
 
         // Give vassvik control of the world supply of memes
-        market.Seed(7, Item.Meme, 9001);
+        //market.Seed(7, Item.Meme, 9001);
 
         // Give SadCloud123 agent 10x Crystals
-        market.Seed(9, Item.Crystal, 10);
+        //market.Seed(9, Item.Crystal, 10);
 
         // Give vassvik agent 100x Water
-        market.Seed(10, Item.Water, 100);
+        market.Seed(10, "Water", 100);
 
         // Give Westermin agent 10x Magic Mushrooms
-        market.Seed(11, Item.MagicMushroom, 10);
+        //market.Seed(11, Item.MagicMushroom, 10);
 
         map.Display();
 
@@ -182,7 +182,7 @@ public class Program
             Utils.LogWarn("Economy WE HAVE FOUND A WINNER");
         }
         // HACK: Ignore (or really, use) the error where nobody wins.
-        catch (InvalidOperationException ex) { }
+        catch { }
 
         Utils.LogWarn("Economy Winner: " + winner);
 

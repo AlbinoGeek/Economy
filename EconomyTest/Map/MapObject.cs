@@ -13,12 +13,7 @@ public class MapObject
     /// must be set by the creator before simulating
     /// </summary>
     public Map parent = null;
-
-    /// <summary>
-    /// single character representation
-    /// </summary>
-    public string Ascii = "■";
-
+    
     /// <summary>
     /// represents left position on map
     /// </summary>
@@ -28,4 +23,12 @@ public class MapObject
     /// represents top position on map
     /// </summary>
     public int Y;
+
+    /// <summary>
+    /// single character representation
+    /// </summary>
+    public virtual string ToAscii()
+    {
+        return "■";
+    }
 }

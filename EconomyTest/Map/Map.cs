@@ -78,7 +78,7 @@ public class Map
         for (int i = 0; i < MapObjects.Count; i++)
         {
             Console.SetCursorPosition(MapObjects[i].X, MapObjects[i].Y + yOffset);
-            Console.Write(MapObjects[i].Ascii);
+            Console.Write(MapObjects[i].ToAscii());
         }
 
         Console.SetCursorPosition(0, Height + yOffset);

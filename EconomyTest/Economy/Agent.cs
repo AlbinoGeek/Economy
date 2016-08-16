@@ -6,6 +6,8 @@ namespace Economy
 {
     using System.Collections.Generic;
 
+    using ItemTemplates;
+
     /// <summary>
     /// represents an entity which takes part in a Market simulation
     /// </summary>
@@ -39,7 +41,7 @@ namespace Economy
         /// <summary>
         /// represents everything the Agent owns
         /// </summary>
-        private Dictionary<Item, int> collection;
+        private List<Item> collection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Agent" /> class. with a name and no items
@@ -49,7 +51,7 @@ namespace Economy
         {
             this.Name = name;
 
-            collection = new Dictionary<Item, int>();
+            collection = new List<Item>();
         }
 
         /// <summary>
@@ -85,12 +87,12 @@ namespace Economy
         {
             get
             {
-                return ItemCount(Item.Bread);
+                return ItemCount("Bread");
             }
 
             private set
             {
-                Seed(Item.Bread, value - ItemCount(Item.Bread));
+                Seed("Bread", value - ItemCount("Bread"));
             }
         }
 
@@ -101,12 +103,12 @@ namespace Economy
         {
             get
             {
-                return ItemCount(Item.Water);
+                return ItemCount("Water");
             }
 
             private set
             {
-                Seed(Item.Water, value - ItemCount(Item.Water));
+                Seed("Water", value - ItemCount("Water"));
             }
         }
 
@@ -117,12 +119,12 @@ namespace Economy
         {
             get
             {
-                return ItemCount(Item.Currency);
+                return ItemCount("Money");
             }
 
             private set
             {
-                Seed(Item.Currency, value - ItemCount(Item.Currency));
+                Seed("Money", value - ItemCount("Money"));
             }
         }
         
@@ -131,19 +133,22 @@ namespace Economy
         /// </summary>
         /// <param name="item">item to create</param>
         /// <param name="quantity">amount to add</param>
-        public void Seed(Item item, int quantity)
+        public void Seed(string itemName, int quantity)
         {
-            // Check if we have an item already
-            if (collection.ContainsKey(item))
+            // If we already have on, increase stack count
+            for (int i = 0; i < collection.Count; i++)
             {
-                // (does have) Add to quantity
-                collection[item] = quantity + collection[item];
+                if (collection[i].Name == itemName)
+                {
+                    collection[i].Quantity += quantity;
+                    return;
+                }
             }
-            else
-            {
-                // (doesn't have) Add to collection
-                collection.Add(item, quantity);
-            }
+
+            // Else create a new stack
+            Item item = new Item(itemName);
+            item.Quantity = quantity;
+            collection.Add(item);
         }
 
         /// <summary>
@@ -161,7 +166,6 @@ namespace Economy
         /// </summary>
         public void Tick()
         {
-            Ascii = Alive ? "+" : "-";
             if (Alive)
             {
                 // If we have reached our destination
@@ -191,8 +195,8 @@ namespace Economy
                 }
 
                 // Consume resources
-                Seed(Item.Bread, -1);
-                Seed(Item.Water, -1);
+                Seed("Bread", -1);
+                Seed("Water", -1);
             }
 
             Alive = !(Food < 0 || Water < 0);
@@ -208,6 +212,15 @@ namespace Economy
         }
 
         /// <summary>
+        /// based on \ref Alive status
+        /// </summary>
+        /// <returns>single character string representation</returns>
+        public override string ToAscii()
+        {
+            return Alive ? "+" : "-";
+        }
+        
+        /// <summary>
         /// basic status information that represents the Agent
         /// </summary>
         /// <returns>string representation</returns>
@@ -221,11 +234,14 @@ namespace Economy
         /// </summary>
         /// <param name="item">item to search for</param>
         /// <returns>total count</returns>
-        private int ItemCount(Item item)
+        private int ItemCount(string itemName)
         {
-            if (collection.ContainsKey(item))
+            for (int i = 0; i < collection.Count; i++)
             {
-                return collection[item];
+                if (collection[i].Name == itemName)
+                {
+                    return collection[i].Quantity;
+                }
             }
 
             return 0;
