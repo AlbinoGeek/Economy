@@ -52,7 +52,7 @@ public class Program
         market.Agents = new List<Agent>();
 
         Random r = new Random();
-        Map map = new Map(100, 16);
+        Map map = new Map(100, 14);
         map.Generate();
 
         string[] population =
@@ -60,14 +60,16 @@ public class Program
             "AngryAlbino",
             "JohnGeese",
             "StabbyGaming",
+            "E.B.",
+            "human_supremacist",
             "Le Chat",
             "Malscythe",
             "Prxy",
-            "vassvik",
-            "human_supremacist",
             "SadCloud123",
             "Sense",
             "Westermin",
+            "wubbalubbadubdub",
+            "vassvik",
         };
         foreach (string name in population)
         {
@@ -101,7 +103,7 @@ public class Program
         //market.Seed(9, Item.Crystal, 10);
 
         // Give vassvik agent 100x Water
-        market.Seed(10, "Water", 100);
+        market.Seed(13, "Water", 100);
 
         // Give Westermin agent 10x Magic Mushrooms
         //market.Seed(11, Item.MagicMushroom, 10);

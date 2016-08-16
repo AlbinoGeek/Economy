@@ -248,7 +248,7 @@ namespace Economy
 
             if (newlyDead)
             {
-                Utils.LogWarn($"{Name, -20} has died of " + CauseOfDeath.ToString() );
+                Utils.LogWarn($" {Name, -18} has died of " + CauseOfDeath.ToString() );
             }
         }
 
@@ -260,7 +260,7 @@ namespace Economy
 
                 if (other.Wealth == 0 && other.Food == 0 && other.Water == 0)
                 {
-                    Utils.LogInfo($"{Name,-20} found the looted body of {other.Name}!");
+                    Utils.LogInfo($" {Name, -18} found the looted body of {other.Name}!");
                     continue;
                 }
 
@@ -272,7 +272,7 @@ namespace Economy
                 other.Food -= other.Food;
                 other.Water -= other.Water;
 
-                Utils.LogInfo($"{Name,-20} looted everything from {other.Name}!");
+                Utils.LogInfo($" {Name, -18} looted everything from {other.Name}!");
             }
         }
 
@@ -304,7 +304,7 @@ namespace Economy
                     other.Wealth += 2;
                     Food++;
 
-                    Utils.LogInfo($"{Name,-20} bought Food  from {other.Name}!");
+                    Utils.LogInfo($" {Name, -18} bought Food  from {other.Name}!");
                 }
                 // Buy Water from others if we need it
                 else if (Water < 5 && other.Water > 10)
@@ -316,7 +316,7 @@ namespace Economy
                     other.Wealth += 2;
                     Water++;
 
-                    Utils.LogInfo($"{Name,-20} bought Water from {other.Name}!");
+                    Utils.LogInfo($" {Name, -18} bought Water from {other.Name}!");
                 }
                 else
                 {
@@ -348,7 +348,7 @@ namespace Economy
         /// <returns>string representation</returns>
         public override string ToString()
         {
-            return $"{trades} | {Name, -20} | Wealth: {Wealth, 4}  Food: {Food, 3}  Water: {Water, 3}";
+            return $"{trades} | {Name, -18} | Wealth: {Wealth, 4}  Food: {Food, 3}  Water: {Water, 3}";
         }
         
         /// <summary>
