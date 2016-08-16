@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 using Economy;
 
@@ -136,35 +137,48 @@ public class Program
         // Loop economy until only one person is left.
         while (countAlive > 1)
         {
-            Console.SetCursorPosition(0, 1);
+            // Clear old Logs
+            for (int i = 0; i < 8; i++)
+            {
+                Console.SetCursorPosition(0, map.Height +market.Agents.Count + i);
+                Console.Write(clearLine);
+            }
 
+            Console.SetCursorPosition(0, 0);
+            map.Display();
+
+            Console.SetCursorPosition(0, 1 + map.Height + market.Agents.Count);
             countAlive = market.Step();
-            map.Display(2);
-
+            
             for (int i = 0; i < market.Agents.Count; i++)
             {
-                Console.SetCursorPosition(0, map.Height + 2 + i);
+                Console.SetCursorPosition(0, map.Height + i);
                 Console.Write(clearLine);
 
                 if (market.Agents[i].Alive)
                 {
-                    Console.SetCursorPosition(0, map.Height + 2 + i);
-                    Utils.LogDebug("Agent: " + market.Agents[i]);
+                    Console.SetCursorPosition(0, map.Height + i);
+                    Utils.LogDebug(market.Agents[i].ToString());
                 }
             }
-
-            Console.SetCursorPosition(0, map.Height + 2 + market.Agents.Count);
-            System.Threading.Thread.Sleep(1000);
+            
+            // Wait 2 seconds per turn .
+            Thread.Sleep(2000);
         }
 
         // Everyone is dead, show the final map status
-        Console.SetCursorPosition(0, 1);
-        market.Step();
-        map.Display(2);
+        map.Display();
 
         for (int i = 0; i < market.Agents.Count; i++)
         {
             Console.SetCursorPosition(0, map.Height + 2 + i);
+            Console.Write(clearLine);
+        }
+        
+        // Clear old Logs
+        for (int i = 0; i < 8; i++)
+        {
+            Console.SetCursorPosition(0, map.Height +market.Agents.Count + i);
             Console.Write(clearLine);
         }
 
@@ -187,5 +201,5 @@ public class Program
         Utils.LogWarn("Economy Winner: " + winner);
 
         return retCode;
-        }
+    }
 }

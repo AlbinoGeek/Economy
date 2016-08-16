@@ -5,6 +5,7 @@
 namespace Economy
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// represents an entity which takes part in a Market simulation
@@ -40,6 +41,11 @@ namespace Economy
         /// represents everything the Agent owns
         /// </summary>
         private List<Item> collection;
+
+        /// <summary>
+        /// number of trades this turn
+        /// </summary>
+        private int trades = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Agent" /> class. with a name and no items
@@ -155,8 +161,7 @@ namespace Economy
         public void Start()
         {
             // Have no destination at the start
-            Destination.X = this.X;
-            Destination.Y = this.Y;
+            Destination = Position;
         }
 
         /// <summary>
@@ -167,12 +172,39 @@ namespace Economy
             if (Alive)
             {
                 // If we have reached our destination
-                if (Destination.Distance(new Point(this.X, this.Y)) < 1f)
+                if (Point.Distance(Position, Destination) < 1f)
                 {
                     // Set a new destination
-                    Destination.X = market.Random.Next(parent.Width - 2) + 1;
-                    Destination.Y = market.Random.Next(parent.Height - 2) + 1;
+                    Destination = new Point(
+                        market.Random.Next(parent.Width - 2) + 1,
+                        market.Random.Next(parent.Height - 2) + 1
+                    );
                 }
+
+                var nearby = GetNeighbors(5);
+                Search(nearby.ToList());
+
+                // Using Linq : Filter our list down to Agents only
+                var objects =
+                    from mapObject in nearby
+                    where mapObject.GetType() == typeof(Agent)
+                    select mapObject;
+
+                List<Agent> agents = objects.OfType<Agent>().ToList();
+
+                var alive =
+                    from a in agents
+                    where a.Alive
+                    select a;
+
+                Trade(alive.ToList());
+
+                var dead =
+                    from a in agents
+                    where !a.Alive
+                    select a;
+
+                Loot(dead.ToList());
 
                 // Move towards destination
                 if (Destination.X > this.X)
@@ -197,15 +229,107 @@ namespace Economy
                 Seed("Water", -1);
             }
 
-            Alive = !(Food < 0 || Water < 0);
-            if (Food < 0)
+            bool newlyDead = false;
+            if ((Food <= 0 || Water <= 0) && Alive)
+            {
+                newlyDead = true;
+            }
+
+            Alive = !(Food <= 0 || Water <= 0);
+            if (Food <= 0)
             {
                 CauseOfDeath = DeathCause.Starvation;
             }
 
-            if (Water < 0)
+            if (Water <= 0)
             {
                 CauseOfDeath = DeathCause.Dehydration;
+            }
+
+            if (newlyDead)
+            {
+                Utils.LogWarn(string.Format("{0,-20}", Name) + "has died of " + CauseOfDeath.ToString() );
+            }
+        }
+
+        private void Loot(List<Agent> nearby)
+        {
+            for (int i = 0; i < nearby.Count(); i++)
+            {
+                Agent other = nearby.ElementAt(i) as Agent;
+
+                if (other.Wealth == 0 && other.Food == 0 && other.Water == 0)
+                {
+                    Utils.LogInfo(string.Format("{0,-20}", Name) + $"found the looted body of {other.Name}!");
+                    continue;
+                }
+
+                Wealth += other.Wealth;
+                Food += other.Food;
+                Water += other.Water;
+
+                other.Wealth -= other.Wealth;
+                other.Food -= other.Food;
+                other.Water -= other.Water;
+
+                Utils.LogInfo(string.Format("{0,-20}", Name) + $"looted everything from {other.Name}!");
+            }
+        }
+
+        private void Search(List<MapObject> nearby)
+        {
+
+        }
+
+        private void Trade(List<Agent> nearby)
+        {
+            trades = 0;
+            for (int i = 0; i < nearby.Count(); i++)
+            {
+                // Do no trades if we are broke
+                if (Wealth <= 0)
+                {
+                    return;
+                }
+
+                Agent other = nearby.ElementAt(i) as Agent;
+                
+                // Buy Food from others if we need it
+                if (Food < 5 && other.Food > 10)
+                {
+                    // Buy 1 food for 2 Money
+                    other.Food--;
+                    Wealth -= 2;
+
+                    other.Wealth += 2;
+                    Food++;
+
+                    Utils.LogInfo(string.Format("{0,-20}", Name) + $"bought Food  from {other.Name}!");
+                }
+                // Buy Water from others if we need it
+                else if (Water < 5 && other.Water > 10)
+                {
+                    // Buy 1 Water for 2 Money
+                    other.Water--;
+                    Wealth -= 2;
+
+                    other.Wealth += 2;
+                    Water++;
+
+                    Utils.LogInfo(string.Format("{0,-20}", Name) + $"bought Water from {other.Name}!");
+                }
+                else
+                {
+                    break;
+                }
+
+                trades++;
+
+                // Limit of 4 trades per turn
+                if (trades == 4)
+                {
+                    break;
+                }
             }
         }
 
@@ -224,7 +348,7 @@ namespace Economy
         /// <returns>string representation</returns>
         public override string ToString()
         {
-            return $"{Name} (Wealth {Wealth}) Food: {Food} Water: {Water}";
+            return $"{trades}| {Name} (Wealth {Wealth}) Food: {Food} Water: {Water}";
         }
         
         /// <summary>

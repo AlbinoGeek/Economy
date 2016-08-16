@@ -59,11 +59,6 @@ public class Map
     /// <param name="yOffset">vertical length to offset drawing by</param>
     public void Display(int yOffset = 0)
     {
-        if (yOffset == 0)
-        {
-            Console.Clear();
-        }
-
         // Draw the map's tiles
         for (int x = 0; x < map.Length; ++x)
         {

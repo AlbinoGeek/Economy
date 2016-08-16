@@ -2,6 +2,8 @@
 //     Copyright (c) Mewzor Holdings Inc.  No Rights Reserved.
 //     Licensed under the "Do What the Fuck You Want To Public License"
 // </copyright>
+using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// represents an object that can be drawn by \ref Map
@@ -23,6 +25,30 @@ public class MapObject
     /// represents top position on map
     /// </summary>
     public int Y;
+
+    /// <summary>
+    /// represents position on map
+    /// </summary>
+    public Point Position
+    {
+        get
+        {
+            return new Point(this.X, this.Y);
+        }
+    }
+
+    /// <summary>
+    /// gets a list of all MapObjects near us
+    /// </summary>
+    /// <returns>list of nearby objects</returns>
+    public IEnumerable<MapObject> GetNeighbors(float distance)
+    {
+        // Using Linq : Filter MapObject by Distance < 3
+        return 
+            from mapObject in parent.MapObjects
+            where Point.Distance(mapObject.Position, Position) < distance
+            select mapObject;
+    }
 
     /// <summary>
     /// single character representation
