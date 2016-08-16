@@ -1,8 +1,9 @@
 # Economy Test
 
-Created during a [livecoding.tv/angryalbino](https://www.livecoding.tv/angryalbino/) Stream.  Watch me work on it every day at 11:00 AM PST.
-
 Basic Economy Simulation with a small Ascii Map to go along with it.
+
+## Created during a [livecoding.tv/angryalbino](https://www.livecoding.tv/angryalbino/) Stream.
+Watch me work on it every day at 11:00 AM PST.
 
 
 ## Download
@@ -32,6 +33,7 @@ Latest: v0.1.3-alpha
     wubbalubbadubdub | ?
     - 
 
+
 ## Screenshots
 
 Console generation and display of a [`Map`](/EconomyTest/Map.cs), and round / turn-based simulation of a [`Market`](/EconomyTest/Economy/Market.cs) full of [`Agent`](/EconomyTest/Economy/Agent.cs)s
@@ -56,3 +58,13 @@ Dead `Agent` are shown as a `-`, where as Alive ones are shown as a `+`.
 ## TODO
 
 - `Map` should generate some items by defualt
+- `Map` should use some ascii / colors to show different tiles
+- `MapTile` with properties such as size other than `1x1`
+- `MapObject` to support sizes larger than `1x1`
+
+- `Map` Features (like River generation, water body generation)
+
+- Special `Agent` implementation (abilities + items)
+
+- More Items
+- More Map Tiles
