@@ -3,7 +3,6 @@
 //     Licensed under the "Do What the Fuck You Want To Public License"
 // </copyright>
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -109,21 +108,9 @@ public class Program
         // Give one agent 100x Bread
         market.Seed(2, "Bread", 100);
         
-        // Give Malscythe 10x Liquor
-        //market.Seed(5, Item.Liquor, 10);
-
-        // Give vassvik control of the world supply of memes
-        //market.Seed(7, Item.Meme, 9001);
-
-        // Give SadCloud123 agent 10x Crystals
-        //market.Seed(9, Item.Crystal, 10);
-
         // Give vassvik agent 100x Water
         market.Seed(16, "Water", 100);
-
-        // Give Westermin agent 10x Magic Mushrooms
-        //market.Seed(11, Item.MagicMushroom, 10);
-
+        
         map.Display();
 
         Utils.LogInfo("Press any key to simulate...");
@@ -181,8 +168,8 @@ public class Program
                 }
             }
             
-            // Wait 2 seconds per turn .
-            Thread.Sleep(2000);
+            // Wait 1.2 seconds per turn .
+            Thread.Sleep(1200);
         }
 
         // Everyone is dead, show the final map status

@@ -12,6 +12,6 @@
 public enum MapTile
 {
     None,
-    Ground,
-    Wall,
+    Border,
+    Water,
 }

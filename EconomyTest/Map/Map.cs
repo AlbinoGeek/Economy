@@ -110,13 +110,10 @@ public class Map
     /// <returns>single character representation</returns>
     public string ToAscii(MapTile tile)
     {
-        if (tile == MapTile.Wall)
+        switch (tile)
         {
-            return "█";
-        }
-        else if (tile == MapTile.Ground)
-        {
-            return ".";
+            case (MapTile.Border):
+                return "█";
         }
 
         return " ";
@@ -148,7 +145,7 @@ public class Map
     {
         for (int i = x; i < length + x; i++)
         {
-            map[i][y] = MapTile.Wall;
+            map[i][y] = MapTile.Border;
         }
     }
 
@@ -166,7 +163,7 @@ public class Map
     {
         for (int i = y; i < length + y; i++)
         {
-            map[x][i] = MapTile.Wall;
+            map[x][i] = MapTile.Border;
         }
     }
 }

@@ -195,26 +195,13 @@ namespace Economy
                 Search(nearby.ToList());
 
                 // Using Linq : Filter our list down to Agents only
-                var objects =
-                    from mapObject in nearby
-                    where mapObject.GetType() == typeof(Agent)
-                    select mapObject;
+                var agents = nearby.OfType<Agent>();
 
-                List<Agent> agents = objects.OfType<Agent>().ToList();
+                var alive = agents.Where(agent => agent.Alive);
+                Trade(alive);
 
-                var alive =
-                    from a in agents
-                    where a.Alive
-                    select a;
-
-                Trade(alive.ToList());
-
-                var dead =
-                    from a in agents
-                    where !a.Alive
-                    select a;
-
-                Loot(dead.ToList());
+                var dead = agents.Where(agent => !agent.Alive);
+                Loot(dead);
 
                 // Move towards destination
                 if (Destination.X > this.X)
@@ -288,12 +275,12 @@ namespace Economy
         /// <summary>
         /// action: searches the bodies of passed \ref nearby and takes their \ref collection
         /// </summary>
-        /// <param name="nearby">dead agents</param>
-        private void Loot(List<Agent> nearby)
+        /// <param name="nearbyAgents">dead agents</param>
+        private void Loot(IEnumerable<Agent> nearbyAgents)
         {
-            for (int i = 0; i < nearby.Count(); i++)
+            for (int i = 0; i < nearbyAgents.Count(); i++)
             {
-                Agent other = nearby.ElementAt(i) as Agent;
+                Agent other = nearbyAgents.ElementAt(i);
 
                 if (other.Wealth == 0 && other.Food == 0 && other.Water == 0)
                 {
@@ -319,11 +306,11 @@ namespace Economy
         /// <summary>
         /// action: given certain trade rules, attempt to take items for money
         /// </summary>
-        /// <param name="nearby">alive agents</param>
-        private void Trade(List<Agent> nearby)
+        /// <param name="nearbyAgents">alive agents</param>
+        private void Trade(IEnumerable<Agent> nearbyAgents)
         {
             trades = 0;
-            for (int i = 0; i < nearby.Count(); i++)
+            for (int i = 0; i < nearbyAgents.Count(); i++)
             {
                 // Do no trades if we are broke
                 if (Wealth <= 0)
@@ -331,7 +318,7 @@ namespace Economy
                     return;
                 }
 
-                Agent other = nearby.ElementAt(i) as Agent;
+                Agent other = nearbyAgents.ElementAt(i);
                 
                 if (Food < 5 && other.Food > 10)
                 { // Buy Food from others if we need it
@@ -377,15 +364,7 @@ namespace Economy
         /// <returns>total count</returns>
         private int ItemCount(string itemName)
         {
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (collection[i].Name == itemName)
-                {
-                    return collection[i].Quantity;
-                }
-            }
-
-            return 0;
+            return collection.Where(item => item.Name == itemName).Sum(item => item.Quantity);
         }
     }
 }
